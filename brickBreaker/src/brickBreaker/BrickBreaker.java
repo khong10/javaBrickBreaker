@@ -26,8 +26,8 @@ public class BrickBreaker extends JPanel{
     public BrickBreaker(int width, int height){
         this.width = width;
         this.height = height;
-
-        backgroundTile = new ImageIcon(getClass().getResource("/brickBreaker/Backgroundtile.jpg")).getImage();
+        // Set background
+        backgroundTile = new ImageIcon(getClass().getResource("/brickBreaker/Background.jpg")).getImage();
 
         reset();
 
@@ -38,6 +38,8 @@ public class BrickBreaker extends JPanel{
                 repaint(); // To move the bar
             }
         });
+
+        // space = start, esc = pause, X = quit
         this.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE && !isRunning) run();
@@ -94,9 +96,7 @@ public class BrickBreaker extends JPanel{
         if (balls <= 0) OnGameOver(false);
         else ball.position = new Point(0, 0);
     }
-    public void OnBlockBroken(Block b) {
 
-    }
     public void OnGameOver(boolean won) {
         quit();
     }
@@ -114,10 +114,10 @@ public class BrickBreaker extends JPanel{
         super.paint(g);
         g.translate((getWidth()-width)/2, (getHeight()-height)/2);
 
-        int bgScale = 3;
-        for (int x = 0; x < width; x+=backgroundTile.getWidth(null)*bgScale) {
-            for (int y = 0; y < height; y+=backgroundTile.getHeight(null)*bgScale) {
-                g.drawImage(backgroundTile, x, y, backgroundTile.getWidth(null)*bgScale, backgroundTile.getHeight(null)*bgScale, null);
+        // Background
+        for (int x = 0; x < width; x+=backgroundTile.getWidth(null)) {
+            for (int y = 0; y < height; y+=backgroundTile.getHeight(null)) {
+                g.drawImage(backgroundTile, x, y, backgroundTile.getWidth(null), backgroundTile.getHeight(null), null);
             }
         }
         g.translate(width/2, height/2);
@@ -127,6 +127,7 @@ public class BrickBreaker extends JPanel{
 
         if (blocks != null) for (int i = 0; i < blocks.size(); i++) blocks.get(i).render(g);
 
+        // Message
         g.setColor(Color.black);
         g.setFont(new Font("Arial", Font.BOLD, 30));
         String msg = "";

@@ -31,7 +31,6 @@ public class Ball {
             movement.x *= pv.x;
             movement.y *= pv.y;
             if (pv.x < 0 || pv.y < 0) {
-                game.OnBlockBroken(b);
                 game.blocks.remove(b);  // remove the blcok when it gets hit by ball
             }
         }
